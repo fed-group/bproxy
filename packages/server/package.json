@@ -1,0 +1,43 @@
+{
+  "name": "@bproxy/server",
+  "version": "0.0.1",
+  "description": "集抓包、调试、mock 于一身的前端开发利器",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "bproxy": "./dist/bin/bproxy.js"
+  },
+  "scripts": {
+    "start": "ts-node --project tsconfig.server.json bin/bproxy.ts dev",
+    "check-types": "tsc --noEmit -p ./tsconfig.server.json",
+    "build": "rimraf dist && tsc -p ./tsconfig.server.json"
+  },
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/mime": "^2.0.3",
+    "esno": "^0.16.3",
+    "rimraf": "3.0.2",
+    "ts-node": "^10.8.1"
+  },
+  "dependencies": {
+    "@bproxy/bridge": "workspace:^0.0.1",
+    "@bproxy/utils": "workspace:^0.0.1",
+    "@types/node-fetch": "2",
+    "commander": "^9.3.0",
+    "debug": "^4.3.4",
+    "esbuild": "^0.14.47",
+    "fs-extra": "^10.1.0",
+    "http-proxy-middleware": "^2.0.6",
+    "inquirer": "^8.2.4",
+    "licia": "1.34.0",
+    "mime": "^3.0.0",
+    "node-fetch": "2",
+    "node-forge": "^1.3.1",
+    "request": "^2.88.2",
+    "rxjs": "7.5.1",
+    "uuid": "^8.3.2"
+  }
+}

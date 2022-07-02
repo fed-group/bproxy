@@ -1,0 +1,11 @@
+{
+
+	"gen arrow fun": {
+		"scope": "javascript,typescript,typescriptreact,javascriptreact",
+		"prefix": "gfn",
+		"body": [
+    "const $1 = ()=>{}"
+		],
+		"description": "Log output to console"
+	}
+}

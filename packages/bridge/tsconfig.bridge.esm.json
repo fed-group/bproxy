@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "esnext",
+    "baseUrl": "./",
+    "outDir": "./dist/esm"
+  },
+  "include": ["./"],
+  "exclude": ["node_modules", "dist"]
+}

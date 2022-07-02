@@ -1,0 +1,6 @@
+{
+  "watch": ["packages/server","!packages/server/dist","packages/bridge","!packages/bridge/dist","packages/utils","!packages/utils/dist"],
+  "ignore": ["**/*.spec.ts"],
+  "ext": "ts",
+  "exec": "pnpm --filter @bproxy/server start"
+}

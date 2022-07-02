@@ -1,0 +1,28 @@
+{
+  "name": "@bproxy/utils",
+  "version": "0.0.1",
+  "types": "dist/esm/index.d.ts",
+  "exports":{
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./os": "./dist/cjs/os.js"
+  },
+  "scripts": {
+    "start": "rimraf dist && tsc  -p ./tsconfig.utils.esm.json",
+    "build": "rimraf dist/cjs && tsc  -p ./tsconfig.utils.json",
+    "build-esm": "rimraf dist/esm && tsc  -p ./tsconfig.utils.esm.json",
+    "check-types": "tsc --noEmit -p ./tsconfig.utils.json"
+  },
+  "npmClient": "pnpm",
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "dependencies": {
+    "debug": "^4.3.4"
+  },
+  "devDependencies": {
+    "rimraf": "3.0.2"
+  }
+}

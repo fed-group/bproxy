@@ -1,0 +1,33 @@
+{
+  "name": "@bproxy/bridge",
+  "version": "0.0.1",
+  "description": "集抓包、调试、mock 于一身的前端开发利器",
+  "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./wsServer": "./dist/cjs/wsServer.js",
+    "./systemProxyMac": "./dist/cjs/systemProxyMac.js"
+  },
+  "scripts": {
+    "start": "rimraf dist && tsc -p ./tsconfig.bridge.esm.json",
+    "build": "rimraf dist/cjs && tsc -p ./tsconfig.bridge.json",
+    "build-esm": "rimraf dist/esm && tsc -p ./tsconfig.bridge.esm.json",
+    "check-types": "tsc --noEmit -p ./tsconfig.bridge.json"
+  },
+  "npmClient": "pnpm",
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "dependencies": {
+    "@bproxy/utils": "workspace:^0.0.1",
+    "debug": "^4.3.4",
+    "rxjs": "7.5.1",
+    "ws": "^8.8.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.3"
+  }
+}
