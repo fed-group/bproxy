@@ -1,8 +1,9 @@
 import { IHttp } from '../types/http';
 
-export default class httpMiddleware {
+export default class httpsMiddleware {
   proxy(req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse) {
-    res.writeHead(200, {});
-    res.end('hello bprxy');
+    const { url } = req;
+
+    res.end(url);
   }
 }

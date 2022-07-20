@@ -7,8 +7,8 @@ import {
   setActiveNetworkProxy,
   setActiveNetworkProxyStatus,
 } from '@bproxy/bridge/systemProxyMac';
-import { userConfig } from './dev';
 import { Log } from './index';
+import dataset from './dataset';
 
 const ip = getIpAddress();
 
@@ -20,7 +20,7 @@ export const handleWebsocketMessage = (wsServer: WSServer) => {
       const payload = data.payload;
       if (isMac) {
         if (payload.on) {
-          setActiveNetworkProxy({ host: ip[0], port: userConfig.port.toString() });
+          setActiveNetworkProxy({ host: ip[0], port: dataset?.config?.port?.toString() });
         } else {
           setActiveNetworkProxyStatus('off');
         }

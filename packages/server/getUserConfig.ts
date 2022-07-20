@@ -1,44 +1,27 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { build } from 'esbuild';
-import { IBproxyUserConfig, Log } from './index';
+import { Log } from './index';
+import { appConfigFileName, appDataPath } from './config';
+import dataset from './dataset';
 
-export const getUserConfig = async () => {
-  const configFileName = 'bproxy.config.ts';
-  const configFilePath = path.join(process.cwd(), configFileName);
+// 获取App配置文件根目录
+export const getAppConfigBasePath = (): string => {
+  return dataset.currentConfigPath || dataset.prevConfigPath || appDataPath;
+};
+
+export const getUserConfig = async (): Promise<null | IConfig.Config> => {
+  const configFilePath = path.resolve(getAppConfigBasePath(), appConfigFileName);
   const isConfigFilePathExit = fs.pathExistsSync(configFilePath);
   if (!isConfigFilePathExit) {
-    Log('位于项目根目录的 bproxy.config.ts 文件不存在');
-    return { config: null };
+    Log(`位于项目根目录的 ${appConfigFileName} 文件不存在`);
+    return null;
   } else {
-    await build({
-      format: 'cjs',
-      logLevel: 'error',
-      outdir: __dirname,
-      bundle: true,
-      external: ['esbuild'],
-      platform: 'node',
-      entryPoints: [configFilePath],
-    });
-    let configFile;
     try {
-      configFile = path.resolve(__dirname, 'bproxy.config.js');
-      delete require.cache[configFile];
-      return await import(configFile);
+      delete require.cache[configFilePath];
+      return require(configFilePath);
     } catch (error) {
       Log('getUserConfig error', error);
-      return { config: null };
-    } finally {
-      fs.remove(configFile);
+      return null;
     }
   }
 };
-
-export function defineBproxyConfig(config: IBproxyUserConfig): IBproxyUserConfig {
-  const defaultConfig = {
-    port: 8888,
-    https: true,
-    rules: [],
-  };
-  return { ...defaultConfig, ...config };
-}

@@ -7,7 +7,8 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
-    "./os": "./dist/cjs/os.js"
+    "./os": "./dist/cjs/os.js",
+    "./inject": "./dist/cjs/inject.js"
   },
   "scripts": {
     "start": "rimraf dist && tsc  -p ./tsconfig.utils.esm.json",
