@@ -8,7 +8,7 @@
     "bproxy": "./dist/bin/bproxy.js"
   },
   "scripts": {
-    "start": "ts-node --files --project tsconfig.server.json bin/bproxy.ts dev",
+    "start": "ts-node --files --project tsconfig.server.json src/bin/bproxy.ts dev",
     "check-types": "tsc --noEmit -p ./tsconfig.server.json",
     "build": "rimraf dist && tsc -p ./tsconfig.server.json",
     "test": "jest"
