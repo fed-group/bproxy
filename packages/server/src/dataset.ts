@@ -3,8 +3,8 @@ const dataset: IConfig.DataSet = {
   currentConfigPath: '',
 };
 
-export function updateDataSet(key: keyof IConfig.DataSet, value: string & IConfig.Config) {
-  dataset[key] = value;
+export function updateDataSet(key: keyof IConfig.DataSet, value: IConfig.DataSet[keyof IConfig.DataSet]) {
+  dataset[key] = value as string & IConfig.Config;
 }
 
 export default dataset;

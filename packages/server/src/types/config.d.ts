@@ -1,5 +1,9 @@
 declare namespace IConfig {
+  interface Header {
+    [key: string]: string | number | boolean | null;
+  }
   interface IRule {
+    regx?: RegExp | string | function;
     url: string | RegExp | function;
     target: number | string;
     delay?: number;
@@ -9,6 +13,10 @@ declare namespace IConfig {
     path?: string;
     redirect?: string;
     rewrite?: (pathname: string) => string;
+    redirectTarget?: string;
+    filepath?: string;
+    cors?: boolean;
+    responseHeaders?: Header;
   }
   interface Certificate {
     filename: string;
@@ -27,6 +35,7 @@ declare namespace IConfig {
   interface Config {
     port: number;
     https: boolean | string[];
+    sslAll?: boolean;
     rules: IRule[];
     certificate: Certificate;
   }
