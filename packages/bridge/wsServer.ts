@@ -1,3 +1,9 @@
+/* eslint-disable no-param-reassign */
+/*
+ * @description: WSServer
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import ws from 'ws';
 import { Server as HTTPServer } from 'http';
 import { Server as HTTPSServer } from 'https';
@@ -12,10 +18,12 @@ declare module 'ws' {
 
 class WSServer {
   private wsServer?: ws.Server;
+
   message$ = new BehaviorSubject<{ socket: ws.WebSocket; data: IWsMessage }>({
     socket: null,
     data: { type: WsMessageTypeEnum.INIT },
   });
+
   clientSocket: ws.WebSocket | null;
 
   constructor(server: HTTPServer | HTTPSServer, noServerMode = false) {
@@ -25,8 +33,8 @@ class WSServer {
     } else {
       wsServer = new ws.Server({ noServer: true });
       server.on('upgrade', (request, socket, head) => {
-        wsServer.handleUpgrade(request, socket, head, socket => {
-          wsServer.emit('connection', socket, request);
+        wsServer.handleUpgrade(request, socket, head, socket2 => {
+          wsServer.emit('connection', socket2, request);
         });
       });
     }
@@ -63,6 +71,7 @@ class WSServer {
     }, 10000);
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, class-methods-use-this
   send(message: IWsMessage, socket: ws.WebSocket) {
     const strMessage = JSON.stringify(message);
     socket?.send(strMessage);

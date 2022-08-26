@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/*
+ * @description: IConfig namespace
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 declare namespace IConfig {
   interface Header {
     [key: string]: string | number | boolean | null;
   }
   interface IRule {
-    regx?: RegExp | string | function;
-    url: string | RegExp | function;
+    regx?: RegExp | string | Function;
+    url: string | RegExp | Function;
     target: number | string;
     delay?: number;
     disableCache?: boolean;

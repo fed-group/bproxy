@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+
+/*
+ * @description: Server 入口
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
@@ -12,7 +18,7 @@ program
   .command('help')
   .alias('-h')
   .description('帮助命令')
-  .action(function (name, other) {
+  .action(function () {
     console.log(`
 支持的命令:
 version, -v,-V 输出当前框架的版本

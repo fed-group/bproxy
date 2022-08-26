@@ -1,5 +1,10 @@
-import { IWsMessage, Log, WsMessageTypeEnum } from './index';
+/*
+ * @description: WSClient
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import { BehaviorSubject } from 'rxjs';
+import { IWsMessage, WsMessageTypeEnum } from './index';
 
 interface IWsClientConfig {
   url: string;
@@ -7,8 +12,11 @@ interface IWsClientConfig {
 
 class WSClient {
   private websocket: WebSocket;
+
   private websocketUrl: string;
+
   private reconnectCount = 0;
+
   message$ = new BehaviorSubject<IWsMessage>({ type: WsMessageTypeEnum.INIT });
 
   constructor(config: IWsClientConfig) {

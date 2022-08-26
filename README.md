@@ -14,6 +14,6 @@ npm i pnpm -g
 
 pnpm install
 
-yarn start-server
+yarn build && yarn start-server
 ```
 

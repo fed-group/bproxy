@@ -1,3 +1,8 @@
+/*
+ * @description: handleWebsocketMessage
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import WSServer from '@bproxy/bridge/wsServer';
 import { skip } from 'rxjs';
 import { WsMessageTypeEnum } from '@bproxy/bridge';
@@ -12,12 +17,13 @@ import dataset from './dataset';
 
 const ip = getIpAddress();
 
+// eslint-disable-next-line import/prefer-default-export
 export const handleWebsocketMessage = (wsServer: WSServer) => {
   wsServer.message$.pipe(skip(1)).subscribe(msg => {
     const { socket, data } = msg;
     Log('收到消息：', data);
     if (data?.type === WsMessageTypeEnum.CLIENT_SETPROXY) {
-      const payload = data.payload;
+      const { payload } = data;
       if (isMac) {
         if (payload.on) {
           setActiveNetworkProxy({ host: ip[0], port: dataset?.config?.port?.toString() });

@@ -1,5 +1,12 @@
+/*
+ * @description: 单侧
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import * as request from 'request';
-import { IHttp } from '../types/http';
+// eslint-disable-next-line import/no-unresolved
+import { IHttp } from 'src/types/http';
+
 const r = request.defaults({
   proxy: 'http://127.0.0.1:8888',
 });
@@ -13,7 +20,7 @@ describe('http://127.0.0.1:8888/cert', () => {
   });
 
   it('/abcd is 404', () => {
-    r('http://127.0.0.1:8888/abcd', (err, res: IHttp.HttpServerResponse, body: string | null) => {
+    r('http://127.0.0.1:8888/abcd', (err, res: IHttp.HttpServerResponse) => {
       expect(res.statusCode === 404).toBeTruthy();
     });
   });

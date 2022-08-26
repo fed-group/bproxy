@@ -1,9 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/*
+ * @description: vite config
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { getThemeVariables } = require('antd/dist/theme');
-import react from '@vitejs/plugin-react';
 
-const isDev = process.env.NODE_ENV === 'development';
+// const isDev = process.env.NODE_ENV === 'development';
 // eslint-disable-next-line no-console
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 

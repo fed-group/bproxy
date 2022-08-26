@@ -1,3 +1,8 @@
+/*
+ * @description: Client APP 入口
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import 'animate.css';
 // import './App.scss';
 import { WsMessageTypeEnum, WSClient, ProxyRequestItem } from '@bproxy/bridge';
@@ -6,7 +11,7 @@ import { Log } from './index';
 
 const wsClient = new WSClient({ url: 'ws://localhost:8888/client' });
 
-export default () => {
+const App = () => {
   const [connected, setConnected] = useState(false);
   const [proxySeted, setProxySeted] = useState(false);
   const [proxyRequestItems, setProxyRequestItems] = useState<ProxyRequestItem[]>([]);
@@ -29,6 +34,7 @@ export default () => {
           setProxySeted(message.payload.msg === 'ok');
           break;
         case WsMessageTypeEnum.SERVER_PROXY_REQUEST_RES:
+          // eslint-disable-next-line no-case-declarations
           const item = message.payload.item as ProxyRequestItem;
           originalItems.current.push(item);
           setProxyRequestItems([...originalItems.current]);
@@ -43,7 +49,9 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    connected && wsClient.send({ type: WsMessageTypeEnum.CLIENT_GETPROXY, payload: { msg: '请求代理状态' } });
+    if (connected) {
+      wsClient.send({ type: WsMessageTypeEnum.CLIENT_GETPROXY, payload: { msg: '请求代理状态' } });
+    }
   }, [connected]);
   return (
     <div>
@@ -62,3 +70,5 @@ export default () => {
     </div>
   );
 };
+
+export default App;

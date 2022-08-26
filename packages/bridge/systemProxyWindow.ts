@@ -1,3 +1,8 @@
+/*
+ * @description: systemProxyWindow
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import { exec } from 'child_process';
 
 const REG_PATH = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings';
@@ -9,7 +14,7 @@ const WINDOWS_PROXY_ENABLE_REGEX = /ProxyEnable\s+REG_DWORD\s+0x1/;
 export function disableSystemProxy() {
   const sh = `${REG_ADD} /v ProxyEnable /t REG_DWORD /d 0 /f`;
   return new Promise((resolve, reject) => {
-    exec(sh, (error, stdout) => {
+    exec(sh, error => {
       if (error) {
         reject(error);
       } else {
@@ -22,7 +27,7 @@ export function disableSystemProxy() {
 export function enableSystemProxy() {
   const sh = `${REG_ADD} /v ProxyEnable /t REG_DWORD /d 1 /f`;
   return new Promise((resolve, reject) => {
-    exec(sh, (error, stdout) => {
+    exec(sh, error => {
       if (error) {
         reject(error);
       } else {
@@ -34,9 +39,10 @@ export function enableSystemProxy() {
 
 export function setSystemProxy({ hostname = '127.0.0.1', port = '8888' }: { hostname?: string; port?: string }) {
   const sh =
+    // eslint-disable-next-line no-useless-concat
     `${REG_ADD} ProxyServer /t REG_SZ /d ${hostname}:${port} /f & ` + `${REG_ADD} /v ProxyEnable /t REG_DWORD /d 1 /f`;
   return new Promise((resolve, reject) => {
-    exec(sh, (error, stdout) => {
+    exec(sh, error => {
       if (error) {
         reject(error);
       } else {

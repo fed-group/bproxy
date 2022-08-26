@@ -1,10 +1,16 @@
-/**
- * 配置文件预处理
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
+/*
+ * @description:配置文件预处理
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
  */
+
 import * as fs from 'fs';
 import * as path from 'path';
+// eslint-disable-next-line import/no-unresolved
 import _ from 'lodash';
-import { Log } from './';
+import { Log } from '.';
 
 const REG_IP = /^(\d{1,3}\.){3}\d{1,3}$/;
 

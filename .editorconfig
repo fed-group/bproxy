@@ -10,6 +10,3 @@ end_of_line = lf
 [*.spec.ts.snap]
 trim_trailing_whitespace = false
 insert_final_newline = false
-
-[*.{js, ts, tsx}]
-quote_type = single

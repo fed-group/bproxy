@@ -1,3 +1,8 @@
+/*
+ * @description: systemProxyMac
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import { spawnSync } from 'child_process';
 
 // 获取系统网络设备
@@ -9,7 +14,7 @@ export const getNetworkServices = (): string[] => {
 // 获取可用的网络设备
 export const getActiveNetwork = () => {
   const list: string[] = [];
-  getNetworkServices().map(deviceName => {
+  getNetworkServices().forEach(deviceName => {
     const txt = spawnSync('networksetup', ['-getinfo', deviceName]).stdout.toString();
     if (/IP\saddress:\s\d+/.test(txt)) {
       list.push(deviceName);
@@ -27,7 +32,7 @@ export const setNetworkProxyStatus = ({ deviceName, status }: { deviceName: stri
 // 设置网络设备代理开关
 export const setActiveNetworkProxyStatus = (status: 'off' | 'on') => {
   const list = getActiveNetwork();
-  list.map(deviceName => {
+  list.forEach(deviceName => {
     setNetworkProxyStatus({ deviceName, status });
   });
 };
@@ -43,7 +48,7 @@ export const setNetworkProxy = ({ deviceName, host, port }: { deviceName: string
 // 设置可用的网络设备代理配置
 export const setActiveNetworkProxy = ({ host, port }: { host: string; port: string }) => {
   const list = getActiveNetwork();
-  list.map(deviceName => {
+  list.forEach(deviceName => {
     spawnSync('networksetup', ['-setautoproxystate', deviceName, 'off']);
     setNetworkProxy({ deviceName, host, port });
     setActiveNetworkProxyStatus('on');
@@ -80,7 +85,7 @@ export const getNetworkHttpsProxyInfo = (deviceName: string) => {
 export const getActiveNetworkProxyInfo = () => {
   const list = getActiveNetwork();
   const result: any = {};
-  list.map(deviceName => {
+  list.forEach(deviceName => {
     const http = getNetworkHttpProxyInfo(deviceName);
     const https = getNetworkHttpsProxyInfo(deviceName);
 
@@ -97,7 +102,7 @@ export const getActiveNetworkProxyInfo = () => {
 export const getActiveNetworkProxyStatus = () => {
   const data = getActiveNetworkProxyInfo();
   const result = {};
-  Object.keys(data).map(deviceName => {
+  Object.keys(data).forEach(deviceName => {
     const { http, https } = data[deviceName];
     const enable =
       http?.Enabled === 'Yes' &&

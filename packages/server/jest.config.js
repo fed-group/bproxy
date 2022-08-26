@@ -1,3 +1,8 @@
+/*
+ * @description: Jest 配置
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 

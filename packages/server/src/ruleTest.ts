@@ -1,6 +1,14 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
+/*
+ * @description: ruleTest
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
+// eslint-disable-next-line import/no-unresolved
 import { cloneDeep, isFunction, isRegExp, isString } from 'lodash';
-import { bproxyPrefixHeader } from './config';
 import { isNeedTransformString2RegExp, url2regx } from '@bproxy/utils/regx';
+import { bproxyPrefixHeader } from './config';
 
 interface IRuleTestResult {
   delay: number;

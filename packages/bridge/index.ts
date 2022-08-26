@@ -1,9 +1,14 @@
-import WSClient from './wsClient';
+/*
+ * @description: WSClient
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import { debug } from '@bproxy/utils';
+import WSClient from './wsClient';
 
 export enum WsMessageTypeEnum {
   INIT = 0,
-  CONNECTED = 1, // 已连接
+  CONNECTED = 1, // 已连接I
   CLOSED = 2, // 已关闭
   CLIENT_SETPROXY = 3, // Client 请求设置系统代理
   SERVER_SETPROXY_RES = 4, // Server 发过来的消息

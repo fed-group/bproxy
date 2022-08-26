@@ -1,3 +1,8 @@
+/*
+ * @description: 证书创建
+ * @author: Feng Yinchao
+ * @Date: 2022-08-26 17:47:04
+ */
 import forge from 'node-forge';
 
 const makeNumberPositive = hexString => {
@@ -113,6 +118,7 @@ class CertificateGeneration {
   static CreateHostCert(hostCertCN, validDomains, rootCAObject) {
     if (!hostCertCN.toString().trim()) throw new Error('"hostCertCN" must be a String');
     if (!Array.isArray(validDomains)) throw new Error('"validDomains" must be an Array of Strings');
+    // eslint-disable-next-line no-prototype-builtins
     if (!rootCAObject || !rootCAObject.hasOwnProperty('certificate') || !rootCAObject.hasOwnProperty('privateKey'))
       throw new Error('"rootCAObject" must be an Object with the properties "certificate" & "privateKey"');
 
