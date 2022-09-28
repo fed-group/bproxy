@@ -18,6 +18,7 @@ import localStaicServer from './localStaicServer';
 import httpMiddleware from './middleware/httpMiddleware';
 import httpsMiddleware from './middleware/httpsMiddleware';
 import { handleWebsocketMessage } from './handleWebsocketMessage';
+import CertificateGeneration from './certificate';
 
 function beforeAppStart() {
   // 创建app data 目录
@@ -30,8 +31,13 @@ function beforeAppStart() {
   }
 
   const certFilePath = config.certificate.getDefaultCACertPath();
-  if (!fs.existsSync(certFilePath)) {
-    // TODO, 创建证书
+  const keyFilePath = config.certificate.getDefaultCAKeyPath();
+
+  if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    // 创建根证书
+    const { certificate: pemCert, privateKey: pemKey } = CertificateGeneration.CreateRootCA();
+    fs.writeFileSync(certFilePath, pemCert);
+    fs.writeFileSync(keyFilePath, pemKey);
   }
 }
 
