@@ -12,6 +12,7 @@ import {
   setActiveNetworkProxy,
   setActiveNetworkProxyStatus,
 } from '@bproxy/bridge/systemProxyMac';
+import { setSystemProxy, getSystemProxyStatus, disableSystemProxy } from '@bproxy/bridge/systemProxyWindow';
 import { Log } from './index';
 import dataset from './dataset';
 
@@ -19,7 +20,7 @@ const ip = getIpAddress();
 
 // eslint-disable-next-line import/prefer-default-export
 export const handleWebsocketMessage = (wsServer: WSServer) => {
-  wsServer.message$.pipe(skip(1)).subscribe(msg => {
+  wsServer.message$.pipe(skip(1)).subscribe(async msg => {
     const { socket, data } = msg;
     Log('收到消息：', data);
     if (data?.type === WsMessageTypeEnum.CLIENT_SETPROXY) {
@@ -36,7 +37,13 @@ export const handleWebsocketMessage = (wsServer: WSServer) => {
           socket,
         );
       } else {
-        Log('暂未实现');
+        if (payload.on) {
+          setSystemProxy({ hostname: ip[0], port: dataset?.config?.port?.toString() });
+        } else {
+          disableSystemProxy();
+        }
+        const res = await getSystemProxyStatus({});
+        wsServer.send({ type: WsMessageTypeEnum.SERVER_GETPROXY_RES, payload: { msg: res ? 'ok' : 'error' } }, socket);
       }
     }
     if (data?.type === WsMessageTypeEnum.CLIENT_GETPROXY) {
@@ -47,7 +54,8 @@ export const handleWebsocketMessage = (wsServer: WSServer) => {
           socket,
         );
       } else {
-        Log('暂未实现');
+        const res = await getSystemProxyStatus({});
+        wsServer.send({ type: WsMessageTypeEnum.SERVER_GETPROXY_RES, payload: { msg: res ? 'ok' : 'error' } }, socket);
       }
     }
   });

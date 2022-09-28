@@ -8,15 +8,16 @@ import fs from 'fs-extra';
 import http from 'http';
 import { Socket } from 'net';
 import { v4 as uuidv4 } from 'uuid';
-import inject from '@bproxy/utils/inject';
 // eslint-disable-next-line import/no-unresolved
 import { IHttp } from 'src/types/http';
+import WSServer from '@bproxy/bridge/wsServer';
 import config, { appConfigFilePath, appDataPath, configTemplateCommonJS } from './config';
 import { getUserConfig } from './getUserConfig';
 import { Log } from './index';
 import localStaicServer from './localStaicServer';
 import httpMiddleware from './middleware/httpMiddleware';
 import httpsMiddleware from './middleware/httpsMiddleware';
+import { handleWebsocketMessage } from './handleWebsocketMessage';
 
 function beforeAppStart() {
   // 创建app data 目录
@@ -85,8 +86,8 @@ const dev = async () => {
   });
 
   // websocket server 创建及消息处理
-  // wsServer = new WSServer(httpserver, true);
-  // handleWebsocketMessage(wsServer);
+  const wsServer = new WSServer(httpserver, true);
+  handleWebsocketMessage(wsServer);
 };
 
 // eslint-disable-next-line import/prefer-default-export

@@ -9,7 +9,8 @@
       "require": "./dist/cjs/index.js"
     },
     "./wsServer": "./dist/cjs/wsServer.js",
-    "./systemProxyMac": "./dist/cjs/systemProxyMac.js"
+    "./systemProxyMac": "./dist/cjs/systemProxyMac.js",
+    "./systemProxyWindow": "./dist/cjs/systemProxyWindow.js"
   },
   "scripts": {
     "start": "rimraf dist && tsc -p ./tsconfig.bridge.esm.json",
