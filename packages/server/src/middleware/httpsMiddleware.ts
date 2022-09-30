@@ -3,8 +3,7 @@
  * @author: Feng Yinchao
  * @Date: 2022-08-26 17:47:04
  */
-// eslint-disable-next-line import/no-unresolved
-import { IHttp } from 'src/types/http';
+import type { IHttp } from '../types/http';
 
 export default class httpsMiddleware {
   static proxy(req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse) {

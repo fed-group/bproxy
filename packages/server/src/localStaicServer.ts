@@ -6,8 +6,7 @@
 import fs from 'fs-extra';
 import mime from 'mime';
 import * as URL from 'url';
-// eslint-disable-next-line import/no-unresolved
-import { IHttp } from 'src/types/http';
+import type { IHttp } from './types/http';
 import config, { appConfigFileName } from './config';
 import { Log } from './index';
 

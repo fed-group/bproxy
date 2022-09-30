@@ -8,9 +8,9 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-// eslint-disable-next-line import/no-unresolved
-import _ from 'lodash';
+import _ from 'lodash-es';
 import { Log } from '.';
+import type { IConfig } from './types/config';
 
 const REG_IP = /^(\d{1,3}\.){3}\d{1,3}$/;
 
@@ -56,10 +56,10 @@ function checkResponseType(target) {
 
 function checkSingleRule(rule: IConfig.IRule) {
   // 废弃regx参数，使用新参数 url
-  if (rule.url) {
-    rule.regx = rule.url;
-    delete rule.url;
-  }
+  // if ('url' in rule) {
+  //   rule.regx = rule.url;
+  //   delete rule.url;
+  // }
   if (rule.target) {
     const ruleKey = checkResponseType(rule.target);
     if (!ruleKey) {
@@ -77,19 +77,19 @@ function checkSingleRule(rule: IConfig.IRule) {
       delete rule.target;
     }
   }
-  if (rule.cors === true) {
-    rule.responseHeaders = {
-      ...(rule.responseHeaders || {}),
-      ...{
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type,Accept,X-Requested-With',
-      },
-    };
+  // if (rule.cors === true) {
+  //   rule.responseHeaders = {
+  //     ...(rule.responseHeaders || {}),
+  //     ...{
+  //       'Access-Control-Allow-Credentials': true,
+  //       'Access-Control-Allow-Origin': '*',
+  //       'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+  //       'Access-Control-Allow-Headers': 'Content-Type,Accept,X-Requested-With',
+  //     },
+  //   };
 
-    delete rule.cors;
-  }
+  //   delete rule.cors;
+  // }
   return {
     ...rule,
   };

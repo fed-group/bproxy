@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /*
  * @description:
  * @author: Feng Yinchao
@@ -6,11 +5,10 @@
  */
 import fs from 'fs-extra';
 import http from 'http';
-import { Socket } from 'net';
+import type { Socket } from 'net';
 import { v4 as uuidv4 } from 'uuid';
-// eslint-disable-next-line import/no-unresolved
-import { IHttp } from 'src/types/http';
 import WSServer from '@bproxy/bridge/wsServer';
+import type { IHttp } from './types/http';
 import config, { appConfigFilePath, appDataPath, configTemplateCommonJS } from './config';
 import { getUserConfig } from './getUserConfig';
 import { Log } from './index';

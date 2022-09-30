@@ -1,29 +1,27 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /*
- * @description: IConfig namespace
+ * @description: IConfig
  * @author: Feng Yinchao
  * @Date: 2022-08-26 17:47:04
  */
-declare namespace IConfig {
+export declare namespace IConfig {
   interface Header {
     [key: string]: string | number | boolean | null;
   }
-  interface IRule {
-    regx?: RegExp | string | Function;
-    url: string | RegExp | Function;
-    target: number | string;
-    delay?: number;
-    disableCache?: boolean;
-    debug?: true | 'vconsole';
-    file?: string;
-    path?: string;
-    redirect?: string;
-    rewrite?: (pathname: string) => string;
-    redirectTarget?: string;
-    filepath?: string;
-    cors?: boolean;
-    responseHeaders?: Header;
-  }
+  type IUrlRule = {
+    url: string;
+    target: string;
+  };
+  type IRegExpRule = {
+    regx: string;
+    target: string;
+  };
+  type IFileRule = {
+    file: string;
+    target: string;
+  };
+
+  type IRule = IUrlRule | IRegExpRule | IFileRule;
+
   interface Certificate {
     filename: string;
     keyFileName: string;

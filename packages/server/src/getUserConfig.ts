@@ -6,12 +6,12 @@
  */
 import path from 'path';
 import fs from 'fs-extra';
-// eslint-disable-next-line import/no-unresolved
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { Log } from './index';
 import { appConfigFileName, appDataPath } from './config';
 import dataset, { updateDataSet } from './dataset';
 import preload from './preload';
+import type { IConfig } from './types/config';
 
 // 获取App配置文件根目录
 export const getAppConfigBasePath = (): string => {
