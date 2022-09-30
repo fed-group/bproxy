@@ -27,7 +27,7 @@ const config: IConfig.Config = {
   https: true,
   rules: [
     {
-      url: 'https://www.douyu.com/bproxy',
+      url: 'http://live.dz11.com',
       target: 'hello bproxy\n',
     },
   ],

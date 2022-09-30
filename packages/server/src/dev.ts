@@ -67,6 +67,10 @@ const dev = async () => {
       Log(`Secure Server is listening on port ${userConfig.port}`);
     });
 
+  // websocket server 创建及消息处理
+  const wsServer = new WSServer(httpserver, true);
+  handleWebsocketMessage(wsServer);
+
   // 代理 http 请求
   httpserver.on('request', (req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse) => {
     if (isLocalHost(req.url)) {
@@ -75,7 +79,7 @@ const dev = async () => {
       return;
     }
     setRequestId(req);
-    httpMiddleware.proxy(req, res);
+    httpMiddleware.proxy(req, res, wsServer);
   });
 
   // 代理 https 请求
@@ -88,10 +92,6 @@ const dev = async () => {
   httpserver.on('upgrade', (req: IHttp.HttpIncomingMessage, socket: Socket, head: Buffer) => {
     setRequestId(req);
   });
-
-  // websocket server 创建及消息处理
-  const wsServer = new WSServer(httpserver, true);
-  handleWebsocketMessage(wsServer);
 };
 
 // eslint-disable-next-line import/prefer-default-export

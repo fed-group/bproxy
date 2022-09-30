@@ -29,6 +29,7 @@
   "dependencies": {
     "@bproxy/bridge": "workspace:^0.0.1",
     "@bproxy/utils": "workspace:^0.0.1",
+    "@types/request": "^2.48.8",
     "commander": "^9.3.0",
     "debug": "^4.3.4",
     "fs-extra": "^10.1.0",
@@ -37,6 +38,7 @@
     "mime": "^3.0.0",
     "node-fetch": "2",
     "node-forge": "^1.3.1",
+    "pako": "^2.0.4",
     "request": "^2.88.2",
     "rxjs": "7.5.1",
     "uuid": "^8.3.2"

@@ -5,7 +5,8 @@
  */
 import 'animate.css';
 // import './App.scss';
-import { WsMessageTypeEnum, WSClient, ProxyRequestItem } from '@bproxy/bridge';
+import type { ProxyRequestItem } from '@bproxy/bridge';
+import { WsMessageTypeEnum, WSClient } from '@bproxy/bridge';
 import { useEffect, useRef, useState } from 'react';
 import { Log } from './index';
 
@@ -62,9 +63,7 @@ const App = () => {
       </p>
       <ul>
         {proxyRequestItems.map((item, key) => (
-          <li key={key}>
-            {item.type} {item.status} {item.url} {item.response}
-          </li>
+          <li key={key}>{JSON.stringify(item)}</li>
         ))}
       </ul>
     </div>
