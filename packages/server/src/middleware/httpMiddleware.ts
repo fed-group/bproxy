@@ -32,7 +32,7 @@ export default class httpMiddleware {
     const responseMessage = {
       url,
       method: 'GET',
-      requestHeaders: {},
+      requestHeaders,
       requestId: req.requestId,
       responseBody: '',
       matched: matchResult.matched,
@@ -55,7 +55,6 @@ export default class httpMiddleware {
         .on('response', response => {
           originalResponseHeaders = response.headers;
           responseMessage.method = response.request.method;
-          responseMessage.requestHeaders = requestHeaders;
         })
         .on('data', data => {
           body.push(data as Buffer);
