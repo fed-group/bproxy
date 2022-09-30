@@ -12,13 +12,23 @@ import type { IHttp } from '../types/http';
 import dataset from '../dataset';
 import { matcher } from '../helpers/matcher';
 import { Log } from '../index';
+import { getPostBody } from '../helpers/utils';
 
 export default class httpMiddleware {
   static async proxy(req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse, wsServer: WSServer): Promise<void> {
     const { rules = [] } = dataset?.config || {};
     const { url } = req;
     const matchResult = matcher(rules, url);
+    const requestHeaders = req.headers;
+    // 构造 body 数据
+    const isPostOrPutMethod = ['post', 'put'].includes(req.method.toLowerCase());
+    let postBodyData: Buffer | undefined;
+
+    if (isPostOrPutMethod) {
+      postBodyData = await getPostBody(req);
+    }
     Log(matchResult, rules, url);
+    // 准备发送给客户端的消息数据
     const responseMessage = {
       url,
       method: 'GET',
@@ -27,14 +37,25 @@ export default class httpMiddleware {
       responseBody: '',
       matched: matchResult.matched,
     };
+    // 构建 option 对象，传给 request 发起请求
+    const option = {
+      url: url || req.url,
+      method: req.method,
+      headers: requestHeaders,
+      body: postBodyData || null,
+      encoding: null,
+      strictSSL: false,
+      rejectUnauthorized: false,
+      followRedirect: false,
+    };
     if (matchResult.matched) {
       const body: Buffer[] = [];
       let originalResponseHeaders = null;
-      request(url)
+      request(option)
         .on('response', response => {
           originalResponseHeaders = response.headers;
           responseMessage.method = response.request.method;
-          responseMessage.requestHeaders = response.request.headers;
+          responseMessage.requestHeaders = requestHeaders;
         })
         .on('data', data => {
           body.push(data as Buffer);
@@ -52,6 +73,15 @@ export default class httpMiddleware {
 
           responseMessage.responseBody = responseText;
 
+          wsServer.send(
+            { type: WsMessageTypeEnum.SERVER_PROXY_REQUEST_RES, payload: { item: responseMessage } },
+            wsServer.clientSocket,
+          );
+        })
+        .pipe(res);
+    } else {
+      request(option)
+        .on('end', () => {
           wsServer.send(
             { type: WsMessageTypeEnum.SERVER_PROXY_REQUEST_RES, payload: { item: responseMessage } },
             wsServer.clientSocket,
