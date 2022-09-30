@@ -83,9 +83,9 @@ const dev = async () => {
   });
 
   // 代理 https 请求
-  httpserver.on('connect', (req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse) => {
+  httpserver.on('connect', (req: IHttp.HttpIncomingMessage, socket: Socket, head: Buffer) => {
     setRequestId(req);
-    httpsMiddleware.proxy(req, res);
+    httpsMiddleware.proxy(req, socket, head);
   });
 
   // 代理 websocket 请求
