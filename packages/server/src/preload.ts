@@ -8,7 +8,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import _ from 'lodash-es';
+import _ from 'lodash';
 import { Log } from '.';
 import type { IConfig } from './types/config';
 

@@ -3,7 +3,7 @@
 //  * @author: Feng Yinchao
 //  * @Date: 2022-08-26 17:47:04
 //  */
-// import { cloneDeep, isFunction, isRegExp, isString } from 'lodash-es';
+// import { cloneDeep, isFunction, isRegExp, isString } from 'lodash';
 // import { isNeedTransformString2RegExp, url2regx } from '@bproxy/utils/regx';
 // import { bproxyPrefixHeader } from './config';
 // import type { IConfig } from './types/config';

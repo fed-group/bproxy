@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import fs from 'fs-extra';
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 import { Log } from './index';
 import { appConfigFileName, appDataPath } from './config';
 import dataset, { updateDataSet } from './dataset';

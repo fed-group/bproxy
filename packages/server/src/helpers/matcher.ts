@@ -4,7 +4,7 @@
  * @Date: 2022-09-30 11:35:29
  */
 
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep } from 'lodash';
 import type { IConfig } from '../types/config';
 
 interface IMatcherResult {
