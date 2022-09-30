@@ -38,9 +38,9 @@ export const handleWebsocketMessage = (wsServer: WSServer) => {
         );
       } else {
         if (payload.on) {
-          setSystemProxy({ hostname: ip[0], port: dataset?.config?.port?.toString() });
+          await setSystemProxy({ hostname: ip[0], port: dataset?.config?.port?.toString() });
         } else {
-          disableSystemProxy();
+          await disableSystemProxy();
         }
         const res = await getSystemProxyStatus({});
         wsServer.send({ type: WsMessageTypeEnum.SERVER_GETPROXY_RES, payload: { msg: res ? 'ok' : 'error' } }, socket);

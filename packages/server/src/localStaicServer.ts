@@ -32,7 +32,7 @@ function downLoadCertificat(res: IHttp.HttpServerResponse) {
   }
 }
 
-export default function localStaicServer(req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse) {
+export default function localStaicServer(req: IHttp.HttpIncomingMessage, res: IHttp.HttpServerResponse): void {
   const { url } = req;
   const { pathname } = URL.parse(url);
 
