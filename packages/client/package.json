@@ -14,17 +14,22 @@
     "node": ">=16.13.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@bproxy/bridge": "workspace:^0.0.1",
     "@bproxy/utils": "workspace:^0.0.1",
+    "ahooks": "^3.7.1",
+    "animate.css": "^4.1.1",
+    "antd": "^4.22.4",
     "classnames": "2.3.1",
     "debug": "^4.3.4",
+    "lodash": "^4.17.21",
     "qrcode": "1.4.4",
     "qs": "6.10.1",
     "react": "17.0.0",
     "react-dom": "17.0.0",
     "react-router-dom": "5.3.0",
     "rxjs": "7.5.1",
-    "animate.css": "^4.1.1"
+    "zustand": "^4.1.2"
   },
   "devDependencies": {
     "@bproxy/server": "workspace:^0.0.1",

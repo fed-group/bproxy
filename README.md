@@ -9,6 +9,8 @@
 ## 开发
 
 ```bash
+# 确保 node 版本 16 以上
+nvm use 16.13.0
 npm i pnpm -g
 # nrm use taobao 使用淘宝源安装依赖
 pnpm install
